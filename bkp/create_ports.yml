@@ -1,0 +1,36 @@
+- shell: cat port.yaml
+  register: portcreate
+
+- set_fact:
+    node: "{{ item.VMName.split('-')[-1] }}" 
+    ipaddr: "{{ item.ip }}"
+
+
+- shell: "grep {{node}}_PORT_v4 port.yaml | tail -1 | tr -d ':'" 
+  register: port_exist
+
+- shell: "echo {{port_exist.stdout}} | awk -F_ '{print $NF}'"
+  register: nodename
+  when: port_exist.stdout != ""
+
+- debug: var=nodename  
+
+- set_fact:
+    node: "{%- if 'v4' in nodename.stdout or 'v6' in nodename.stdout -%}
+                {{port_exist.stdout}}_1
+             {%- else -%}
+                {{port_exist.stdout}}_{{nodename.stdout|int + 1}}
+             {%- endif -%}"
+  when: port_exist.stdout != ""
+
+
+- debug: var=ipaddr             
+# - set_fact:
+#     newport: vm_name1
+#   loop: "{{ portcreate.stdout_lines }}"
+#   when: vm_name in item
+# - name: create portcreate.yaml
+#   blockinfile:
+#     dest: port.yaml
+#     block: "{{ lookup('template', 'port.j2') }}"
+#     marker: "marker {{ item.ip }}"

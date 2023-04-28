@@ -1,0 +1,9 @@
+- name: "Read VNF info from CSV file and return a list"
+  read_csv:
+    path: "{{ role_path }}/files/test.csv"
+    fieldnames: VMName,ip
+    delimiter: ','
+  register: vnfinfo
+
+- include_tasks: create_ports.yml
+  loop: "{{ vnfinfo.list[1:] }}"

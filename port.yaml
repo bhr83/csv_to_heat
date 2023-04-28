@@ -1,0 +1,45 @@
+marker 10.10.10.10
+VNFMP_MST01_PORT_v4:
+    type: OS::Neutron::Port
+    properties:
+    name: RCKLCA63VZWvMKT-A-VZ-APPP-MST01_PORT_v4
+    network: RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0
+    security_groups: [RCKLCA63VZWvMKT-A-VZ-APPP-SG]
+    fixed_ips: [{"subnet": "RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0v4", "ip_address": "10.10.10.10"}]
+marker 10.10.10.10
+marker 20.20.20.20
+VNFMP_MST01_PORT_v4_1:
+    type: OS::Neutron::Port
+    properties:
+    name: RCKLCA63VZWvMKT-A-VZ-APPP-MST01_PORT_v4_1
+    network: RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0
+    security_groups: [RCKLCA63VZWvMKT-A-VZ-APPP-SG]
+    fixed_ips: [{"subnet": "RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0v4", "ip_address": "20.20.20.20"}]
+marker 20.20.20.20
+marker  30.30.30.30
+VNFMP_MST02_PORT_v4:
+    type: OS::Neutron::Port
+    properties:
+    name: RCKLCA63VZWvMKT-A-VZ-APPP-MST02_PORT_v4
+    network: RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0
+    security_groups: [RCKLCA63VZWvMKT-A-VZ-APPP-SG]
+    fixed_ips: [{"subnet": "RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0v4", "ip_address": " 30.30.30.30"}]
+marker  30.30.30.30
+marker  40.40.40.40
+VNFMP_MST02_PORT_v4_1:
+    type: OS::Neutron::Port
+    properties:
+    name: RCKLCA63VZWvMKT-A-VZ-APPP-MST02_PORT_v4_1
+    network: RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0
+    security_groups: [RCKLCA63VZWvMKT-A-VZ-APPP-SG]
+    fixed_ips: [{"subnet": "RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0v4", "ip_address": " 40.40.40.40"}]
+marker  40.40.40.40
+marker  50.50.50.50
+VNFMP_MST02_PORT_v4_2:
+    type: OS::Neutron::Port
+    properties:
+    name: RCKLCA63VZWvMKT-A-VZ-APPP-MST02_PORT_v4_2
+    network: RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0
+    security_groups: [RCKLCA63VZWvMKT-A-VZ-APPP-SG]
+    fixed_ips: [{"subnet": "RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0v4", "ip_address": " 50.50.50.50"}]
+marker  50.50.50.50
