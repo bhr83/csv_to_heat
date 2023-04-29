@@ -1,0 +1,12 @@
+    VNFMP_{{vnf_name}}_SERVER:
+    type: OS::Nova::Server
+    properties:
+      name: {{ item.VMName }}
+      key_name: {{ key_name }}
+      image: {{ image }}
+      flavor: {{ item.flavor_name }}
+      networks:
+{% for port in port_list %}
+        - port: { get_resource: {{port | trim}} }
+{% endfor %}
+      config_drive: True

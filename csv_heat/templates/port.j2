@@ -1,7 +1,7 @@
-VNFMP_{{node}}{{port_name}}:
-    type: OS::Neutron::Port
-    properties:
-    name: {{ item.VMName }}{{port_name}}
-    network: RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0
-    security_groups: [RCKLCA63VZWvMKT-A-VZ-APPP-SG]
-    fixed_ips: [{"subnet": "RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0v4", "ip_address": "{{ ipaddr }}"}]
+    VNFMP_{{node}}{{port_name}}:
+      type: OS::Neutron::Port
+      properties:
+      name: {{ item.VMName }}{{port_name}}
+      network: "{{ network }}"
+      security_groups: "{{ security_groups }}"
+      fixed_ips: [{"subnet": "{{ subnet }}", "ip_address": "{{ ipaddr }}"}]

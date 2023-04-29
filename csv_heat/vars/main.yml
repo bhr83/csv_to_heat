@@ -1,1 +1,6 @@
-port_yaml_path: "/home/bindu/playbooks/goutham/port.yaml"
+network: 'RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0'
+security_groups: '[RCKLCA63VZWvMKT-A-VZ-APPP-SG]'
+subnet: 'RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0v4'
+vnf_name_desc: 'RCKLCA63VZWvMKT-A-VZ-APPP-'
+key_name: 'RCKLCA63VZWvMKT-A-VZ-APPP-KP'
+image: 'rhel-8.2-x86_64-kvm'

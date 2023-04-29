@@ -1,0 +1,29 @@
+
+- name: set port and ipaddr
+  set_fact:
+    port_name: "_PORT_v6" 
+    ipaddr: "{{ item.ipv6 }}"
+
+- name: Check whether {{node}}{{port_name}} exists
+  shell: "grep {{node}}{{port_name}} {{portv6_yaml_path}} | tail -1 | tr -d ':'" 
+  register: port_exist
+
+- name: Get port number
+  shell: "echo {{port_exist.stdout}} | awk -F_ '{print $NF}'"
+  register: portnum
+  when: port_exist.stdout != ""
+
+- name: Update portname if {{node}}{{port_name}}  exists
+  set_fact:
+    port_name: "{%- if 'v4' in portnum.stdout -%}
+                _PORT_v6_1
+             {%- else -%}
+                _PORT_v6_{{portnum.stdout|int + 1}}
+             {%- endif -%}"
+  when: port_exist.stdout != ""
+
+- name: create port.yaml
+  blockinfile:
+    dest: "{{portv6_yaml_path}}"
+    block: "{{ lookup('template', 'port.j2') }}"
+    marker: "marker {{ item.ipv6 }}"

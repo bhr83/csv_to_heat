@@ -1,0 +1,22 @@
+- name: Get VNF name
+  set_fact:
+    vnf_name: "{{ item.VMName.split('-')[-1] }}"
+
+- name: Check whether VNFMP_{{vnf_name}}_PORT exists
+  shell: "grep VNFMP_{{vnf_name}}_PORT {{port_yaml_path}} | tr -d ':'" 
+  register: portlist
+
+- name: Get list of ports for server {{ vnf_name }}
+  set_fact:
+    port_list: "{{portlist.stdout_lines }}"
+
+- name: Check whether VNFMP_{{vnf_name}}_SERVER exists
+  shell: "grep VNFMP_{{vnf_name}}_SERVER {{vnf_yaml_path}} | head -1" 
+  register: vnf_exist
+
+- name: create vnf.yaml
+  blockinfile:
+    dest: "{{vnf_yaml_path}}"
+    block: "{{ lookup('template', 'vnf.j2') }}"
+    marker: "marker {{ item.VMName }}"  
+  when: vnf_exist.stdout == ""

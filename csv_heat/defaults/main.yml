@@ -1,0 +1,5 @@
+portv4_yaml_path: "/home/bindu/playbooks/goutham/portv4.yaml"
+portv6_yaml_path: "/home/bindu/playbooks/goutham/portv6.yaml"
+port_yaml_path: "/home/bindu/playbooks/goutham/port.yaml"
+vnf_yaml_path: "/home/bindu/playbooks/goutham/vnf.yaml"
+heat_template_path: "/home/bindu/playbooks/goutham/heat.yaml"

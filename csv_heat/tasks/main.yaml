@@ -1,9 +1,55 @@
 - name: "Read VNF info from CSV file and return a list"
   read_csv:
     path: "{{ role_path }}/files/test.csv"
-    fieldnames: VMName,ip
+    fieldnames: VMName,ipv4,ipv6,flavor_name
     delimiter: ','
   register: vnfinfo
 
+- name: clear content
+  shell: "> {{ item }}" 
+  loop:
+    - "{{port_yaml_path}}"
+    - "{{portv4_yaml_path}}"
+    - "{{portv6_yaml_path}}"
+    - "{{ vnf_yaml_path }}"
+    - "{{ heat_template_path }}"
+
 - include_tasks: create_ports.yml
   loop: "{{ vnfinfo.list[1:] }}"
+
+- name: combine ipv4 and ipv6 results into single port.yaml
+  shell: "cat {{ item }} >> {{port_yaml_path}}" 
+  loop:    
+    - "{{portv4_yaml_path}}"
+    - "{{portv6_yaml_path}}"
+
+- include_tasks: create_vnfs.yml
+  loop: "{{ vnfinfo.list[1:] }}"    
+
+- name: remove marker lines
+  lineinfile:
+    regex: 'marker'
+    state: absent
+    path: "{{ item }}"
+  loop: 
+    - "{{port_yaml_path}}"  
+    - "{{vnf_yaml_path}}"
+
+- name: remove portv4 adn portv6 yamls
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{portv4_yaml_path}}"
+    - "{{portv6_yaml_path}}"
+
+- name: create heat template
+  template:
+    src: heat_template.j2
+    dest: "{{ heat_template_path }}"
+
+- name: Append port.yaml and vnf.yaml content to heat template
+  shell: "cat {{ item }} >> {{ heat_template_path }}" 
+  loop:    
+    - "{{port_yaml_path}}"
+    - "{{vnf_yaml_path}}"    
