@@ -11,19 +11,24 @@
   shell: "grep {{node}}{{port_name}} {{portv4_yaml_path}} | tail -1 | tr -d ':'" 
   register: port_exist
 
-- name: Get port number
-  shell: "echo {{port_exist.stdout}} | awk -F_ '{print $NF}'"
-  register: portnum
+- name: fail if port number already exist
+  fail:
+    msg: "{{node}}{{port_name}} port already exist"
   when: port_exist.stdout != ""
 
-- name: Update portname {{node}}{{port_name}} if exists
-  set_fact:
-    port_name: "{%- if 'v4' in portnum.stdout -%}
-                _PORT_v4_1
-             {%- else -%}
-                _PORT_v4_{{portnum.stdout|int + 1}}
-             {%- endif -%}"
-  when: port_exist.stdout != ""
+# - name: Get port number
+#   shell: "echo {{port_exist.stdout}} | awk -F_ '{print $NF}'"
+#   register: portnum
+#   when: port_exist.stdout != ""
+
+# - name: Update portname {{node}}{{port_name}} if exists
+#   set_fact:
+#     port_name: "{%- if 'v4' in portnum.stdout -%}
+#                 _PORT_v4_1
+#              {%- else -%}
+#                 _PORT_v4_{{portnum.stdout|int + 1}}
+#              {%- endif -%}"
+#   when: port_exist.stdout != ""
 
 - name: create port.yaml
   blockinfile:
