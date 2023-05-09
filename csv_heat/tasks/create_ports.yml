@@ -3,10 +3,14 @@
     node: "{{ item.VMName.split('-')[-1] }}"
 
 - name: include ipv4
+  vars:
+    subnet: '{{ v4_subnet }}'
   include_tasks: add_ipv4.yml
   when: item.ipv4 != ''
 
 - name: include ipv6
+  vars:
+    subnet: '{{ v6_subnet }}'
   include_tasks: add_ipv6.yml
   when: item.ipv6 != ''
 

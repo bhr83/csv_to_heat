@@ -5,5 +5,5 @@ marker 2607:f160:8a06:a14e:f1:28:0000:0022
       name: RCKLCA63VZWvMKT-A-VZ-APPP-MST01_PORT_v6
       network: "RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0"
       security_groups: "[RCKLCA63VZWvMKT-A-VZ-APPP-SG]"
-      fixed_ips: [{"subnet": "RCKLCA63VZWvORC-A-VZ-VNFMP-01-EDN-EXT0v4", "ip_address": "2607:f160:8a06:a14e:f1:28:0000:0022"}]
+      fixed_ips: [{"subnet": "TEST", "ip_address": "2607:f160:8a06:a14e:f1:28:0000:0022"}]
 marker 2607:f160:8a06:a14e:f1:28:0000:0022
